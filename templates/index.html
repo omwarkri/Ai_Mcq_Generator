@@ -104,6 +104,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        #loading {
+            display: none;
+            text-align: center;
+            font-size: 18px;
+            color: #4285f4;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -149,6 +156,8 @@
         </form>
     </div>
 
+    <div id="loading">🔄 Generating MCQs... Please wait.</div>
+
     {% if error %}
         <div class="error">{{ error }}</div>
     {% endif %}
@@ -191,19 +200,26 @@
                 {% endif %}
             {% endfor %}
         </div>
-
-        <script>
-            function toggleAnswer(button) {
-                const answerDiv = button.nextElementSibling;
-                if (answerDiv.style.display === "block") {
-                    answerDiv.style.display = "none";
-                    button.textContent = "Show Answer";
-                } else {
-                    answerDiv.style.display = "block";
-                    button.textContent = "Hide Answer";
-                }
-            }
-        </script>
     {% endif %}
+
+    <script>
+        const form = document.querySelector('form');
+        const loadingMessage = document.getElementById('loading');
+
+        form.addEventListener('submit', function () {
+            loadingMessage.style.display = 'block';
+        });
+
+        function toggleAnswer(button) {
+            const answerDiv = button.nextElementSibling;
+            if (answerDiv.style.display === "block") {
+                answerDiv.style.display = "none";
+                button.textContent = "Show Answer";
+            } else {
+                answerDiv.style.display = "block";
+                button.textContent = "Hide Answer";
+            }
+        }
+    </script>
 </body>
 </html>
